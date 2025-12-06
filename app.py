@@ -1,22 +1,22 @@
 import streamlit as st
-import threading
-import sys
-import asyncio
 from scraper.whatsapp import open_whatsapp
 
-# Windows event-loop fix
-if sys.platform == "win32":
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+st.set_page_config(page_title="Proto WhatsApp Scraper (Selenium)", page_icon="📸", layout="centered")
 
-st.set_page_config(page_title="Proto WhatsApp Scraper", page_icon="💬")
+st.title("📸 Proto WhatsApp Photo Scraper (Selenium)")
 
-st.title("💬 Proto WhatsApp Scraper (Stable Version)")
+st.write("This tool opens WhatsApp Web using Selenium so you can scrape photos from a selected chat.")
 
-def run_playwright():
-    open_whatsapp()
+st.markdown("""
+### Before You Start:
+1. Make sure Google Chrome is installed.
+2. The app will open a new Chrome window.
+3. Scan the QR code on WhatsApp Web.
+4. Select the chat you want to scrape.
+""")
 
 if st.button("Open WhatsApp Web"):
-    threading.Thread(target=run_playwright, daemon=True).start()
-    st.success("Launching WhatsApp…")
+    st.success("Launching WhatsApp Web...")
+    open_whatsapp()
 else:
-    st.info("Waiting for action…")
+    st.info("Click the button above to start.")
